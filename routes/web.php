@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Post routes
 Route::get('posts/{id}', ['uses' => 'PostController@show', 'as' => 'posts.show']);
