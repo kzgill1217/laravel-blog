@@ -19,7 +19,10 @@ class ViewSinglePostTest extends DuskTestCase
     public function testViewSinglePost()
     {
         // Create a post with the body 'first post' and save it
-        $post = factory(Post::class)->create(['body' => 'first post']);
+        $post = factory(Post::class)->create([
+            'title' => 'Post 1',
+            'slug' => 'post-1',
+            'body' => 'first post']);
         $post->save();
     
         // Start a browser and visit the url where the post is located
