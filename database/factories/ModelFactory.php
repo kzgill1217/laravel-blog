@@ -15,6 +15,8 @@
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
     return [
+        'title' => $faker->sentence(),
+        'slug' => $faker->sentence,
         'body' => $faker->sentence(),
     ];
 });

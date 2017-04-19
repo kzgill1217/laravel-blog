@@ -12,9 +12,9 @@ class CreatePostTest extends DuskTestCase
     
     use DatabaseMigrations;
     /**
-     * Going from 'add a new post' button to form submit
+     * Going from 'add a new post' link to a create post page
      *
-     * @return void
+     * Should see a form with Title: as a label
      */
     public function testCreatePost()
     {
