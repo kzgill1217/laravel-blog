@@ -20,7 +20,7 @@
     $ service apache2 restart
 5. Run $ composer install
 
-6. Get ready for TDD
+6. Get ready for TDD *option for using basic phpunit and an in memory sqlite database*
     -Delete all DB variables from .env files
     -Add into phpunit.xml
     <env name="DB_CONNECTION" value="sqlite">
