@@ -1,0 +1,82 @@
+Create auth scaffolding $php artisan make:auth
+
+Create admin migration $php artisan make:migration create_admins_table
+
+add this schema 
+         Schema::create('admins', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('job_title');
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+Copy User.php into Admin.php with the following text
+-------------------------------------------------------
+namespace App;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Admin extends Authenticatable
+{
+    use Notifiable;
+    protected $guard = 'admin';
+    protected $fillable = [
+        'name', 'email', 'password', 'job_title',
+    ];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+---------------------------------------------------------
+
+Go in the config/auth.php file
+Under providers add admins provider
+-------------------------------------------
+       'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+-------------------------------------------
+Under gaurds add the admin gaurd
+
+-------------------------------------------
+            'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+-------------------------------------------
+Under passwords add the password reset for the admins, the link expires in 15 minutes
+------------------------------------------------------
+'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+-----------------------------------------------------
+
+
+IMPLEMENTATION
+
+Create a route to the admin controller and in the controller add
+-------------------------------------------------------------------
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+class AdminController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+  
+    public function index()
+    {
+        return view('admin');
+    }
+}
+-------------------------------------------------------------------------------
+
+
+
+        
+        

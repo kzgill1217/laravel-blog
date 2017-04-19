@@ -20,3 +20,6 @@ Route::get('posts/edit/{id}', ['uses' => 'PostController@edit', 'as' => 'posts.e
 Route::get('posts/create', ['uses' => 'PostController@create', 'as' => 'posts.create']);
 Route::get('posts/{id}', ['uses' => 'PostController@show', 'as' => 'posts.show']);
 Route::get('posts', ['uses' => 'PostController@index', 'as' => 'posts.index']);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
